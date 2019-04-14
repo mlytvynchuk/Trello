@@ -1,27 +1,30 @@
 import React from 'react'
 import TrelloCard from './TrelloCard'
 import TrelloActionButton from './TrelloActionButton'
-import { Droppable } from 'react-beautiful-dnd'
-const TrelloList = ({ title, cards, listID }) => {
+import { Droppable, Draggable } from 'react-beautiful-dnd'
+const TrelloList = ({ title, cards, listID, index }) => {
     return (
-        <Droppable droppableId={String(listID)}>
+        <Draggable draggableId={String(listID)} index={index}>
             {provided => (
-                <div style={styles.container}>
-                    <div {...provided.droppableProps}
-                        ref={provided.innerRef}
-                    >
-                        <div>
-                            <h3>{title}</h3>
-                            {cards.map((card, index) => (<TrelloCard index={index} key={card.id} text={card.text} id={card.id} />))}
-
-                            {provided.placeholder}
-                        </div>
-                        <TrelloActionButton listID={listID} /></div>
+                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                    <Droppable droppableId={String(listID)}>
+                        {provided => (
+                            <div style={styles.container}>
+                                <div {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    <div>
+                                        <h3>{title}</h3>
+                                        {cards.map((card, index) => (<TrelloCard index={index} key={card.id} text={card.text} id={card.id} />))}
+                                        {provided.placeholder}
+                                    </div>
+                                    <TrelloActionButton listID={listID} /></div>
+                            </div>
+                        )}
+                    </Droppable>
                 </div>
-
-
             )}
-        </Droppable>
+        </Draggable>
     )
 }
 const styles = {

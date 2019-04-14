@@ -25,15 +25,18 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className="App">
           <h1>Trello Application</h1>
-          <Droppable droppableId="our-list">
-
+          <Droppable droppableId="all-list" direction="horizontal">
+            {provided => (
+              <div className="list-container" {...provided.droppableProps}
+                ref={provided.innerRef}>
+                {lists.map((list, index) => (
+                  <TrelloList index={index} listID={list.id} key={list.id} title={list.title} cards={list.cards} />
+                ))}
+                <TrelloActionButton list />
+              </div>
+            )}
           </Droppable>
-          <div className="list-container">
-            {lists.map(list => (
-              <TrelloList listID={list.id} key={list.id} title={list.title} cards={list.cards} />
-            ))}
-            <TrelloActionButton list />
-          </div>
+
         </div>
       </DragDropContext>
     );
