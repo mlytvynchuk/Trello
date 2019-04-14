@@ -15,7 +15,7 @@ const TrelloList = ({ title, cards, listID, index }) => {
                                 >
                                     <div>
                                         <h3>{title}</h3>
-                                        {cards.map((card, index) => (<TrelloCard index={index} key={card.id} text={card.text} id={card.id} />))}
+                                        {cards.map((card, index) => (<TrelloCard listID={listID} index={index} key={card.id} text={card.text} id={card.id} />))}
                                         {provided.placeholder}
                                     </div>
                                     <TrelloActionButton listID={listID} /></div>

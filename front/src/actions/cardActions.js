@@ -5,3 +5,9 @@ export const addCard = (listID, text) => {
         payload: { listID, text }
     }
 }
+export const deleteCard = (cardID, listID) => {
+    return {
+        type: CONSTANS.DELETE_CARD,
+        payload: { cardID, listID }
+    }
+}

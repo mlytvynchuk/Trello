@@ -43,7 +43,7 @@ textarea.add-textarea {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     margin: auto;
 }
 .card-content{
