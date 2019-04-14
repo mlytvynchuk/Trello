@@ -91,11 +91,17 @@ const listReducer = (state = initialState, action) => {
                 droppableIdEnd,
                 droppableIndexEnd,
                 droppableIndexStart,
-                draggableId
+                draggableId,
+                type
             } = action.payload;
             const newState = [...state];
+            if (type === "list") {
+                const list = newState.splice(droppableIndexStart, 1);
+                newState.splice(droppableIndexEnd, 0, ...list);
+
+            }
             // in the same list change order of cards
-            if (droppableIdStart === droppableIdEnd) {
+            else if (droppableIdStart === droppableIdEnd) {
                 const mylist = state.find(list => droppableIdStart === list.id);
                 const card = mylist.cards.splice(droppableIndexStart, 1);
                 mylist.cards.splice(droppableIndexEnd, 0, ...card);

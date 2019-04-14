@@ -7,7 +7,7 @@ import { sort } from '../actions';
 class App extends Component {
   onDragEnd = (result) => {
     // TODO : reorder logic
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
     if (!destination) {
       return;
     }
@@ -16,7 +16,8 @@ class App extends Component {
       destination.droppableId,
       source.index,
       destination.index,
-      draggableId
+      draggableId,
+      type
     ));
   }
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className="App">
           <h1>Trello Application</h1>
-          <Droppable droppableId="all-list" direction="horizontal">
+          <Droppable type="list" droppableId="all-list" direction="horizontal">
             {provided => (
               <div className="list-container" {...provided.droppableProps}
                 ref={provided.innerRef}>
