@@ -33,6 +33,7 @@ class App extends Component {
                 {lists.map((list, index) => (
                   <TrelloList index={index} listID={list.id} key={list.id} title={list.title} cards={list.cards} />
                 ))}
+                {provided.placeholder}
                 <TrelloActionButton list />
               </div>
             )}

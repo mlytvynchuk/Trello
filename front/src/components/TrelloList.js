@@ -35,6 +35,7 @@ const styles = {
         height: "100%",
         padding: 8,
         marginRight: 8,
+        marginBottom: 20,
 
     }
 }
