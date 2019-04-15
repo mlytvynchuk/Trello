@@ -34,6 +34,7 @@ const styles = {
         width: 300,
         height: "100%",
         padding: 8,
+        paddingRight: 10,
         marginRight: 8,
         marginBottom: 20,
 

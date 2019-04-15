@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { deleteCard } from '../actions';
+import { deleteCard, editCard } from '../actions';
+import ContentEditable from 'react-contenteditable'
 
 function getModalStyle() {
     const top = 35;
@@ -32,6 +33,7 @@ const styles = theme => ({
 class SimpleModal extends React.Component {
     state = {
         open: false,
+        text: this.props.children
     };
 
     handleOpen = () => {
@@ -40,11 +42,21 @@ class SimpleModal extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        const { dispatch, cardID, listID } = this.props;
+        const { text } = this.state;
+        if (this.props.children !== this.state.text) {
+            dispatch(editCard(cardID, listID, text));
+        }
     };
     handleDelete = (cardID, listID) => {
         console.log("DELETE", cardID, listID);
         const { dispatch } = this.props;
         dispatch(deleteCard(cardID, listID));
+    }
+    handleChange = (e) => {
+        this.setState({
+            text: e.target.value
+        })
     }
 
     render() {
@@ -60,22 +72,30 @@ class SimpleModal extends React.Component {
                     onClose={this.handleClose}
                 >
                     <div style={getModalStyle()} className={classes.paper}>
-                        <h3>{this.props.children}</h3>
-                        <Button type="delete" onClick={() => this.handleDelete(this.props.cardID, this.props.listID)}>Delete</Button>
+                        <ContentEditable
+                            innerRef={this.contentEditable}
+                            tagName='h3'
+                            html={`${this.state.text}`}
+                            disabled={false}       // use true to disable editing
+                            onChange={this.handleChange}
+                        />
+
+
+
+                        < Button type="delete" onClick={() => this.handleDelete(this.props.cardID, this.props.listID)}>Delete</Button>
 
                         <SimpleModalWrapped />
                     </div>
                 </Modal>
-            </div>
+            </div >
         );
     }
-}
-
-SimpleModal.propTypes = {
-    classes: PropTypes.object.isRequired,
 };
 
-// We need an intermediary variable for handling the recursive nesting.
+SimpleModal.propTypes = {
+    classes: PropTypes.object.isRequired
+};
+
 const SimpleModalWrapped = withStyles(styles)(SimpleModal);
 
 export default connect()(SimpleModalWrapped);

@@ -126,6 +126,22 @@ const listReducer = (state = initialState, action) => {
             console.log(cardID, listID);
             return newState;
         }
+        case CONSTANS.EDIT_CARD: {
+            const newState = [...state];
+            const {
+                cardID,
+                listID,
+                text
+            } = action.payload;
+            const list = state.find(list => listID === list.id);
+            const card = list.cards.find(card => cardID === card.id);
+            const cardIndex = list.cards.findIndex(card => cardID === card.id);
+            list.cards[cardIndex] = {
+                id: cardID,
+                text: text
+            }
+            return newState;
+        }
         default: return state;
     }
 }

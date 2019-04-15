@@ -5,5 +5,6 @@ export const CONSTANS = {
     ADD_LIST: "ADD_LIST",
     DRAG_HAPPENED: "DRAG_HAPPENED",
     DELETE_CARD: "DELETE_CARD",
+    EDIT_CARD: "EDIT_CARD",
 
 }
